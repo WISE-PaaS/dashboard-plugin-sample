@@ -8,7 +8,7 @@ export class SampleCtrl extends MetricsPanelCtrl {
 
         var panelDefaults = {
             data: {
-                dataValue: '',
+                dataValue: 0,
                 dataLabel: '',
             },
             FontSize: '70%',
@@ -74,11 +74,13 @@ export class SampleCtrl extends MetricsPanelCtrl {
             },
         ];
 
-        this.events.on('render', this.onRender.bind(this));
-        this.events.on('data-received', this.onDataReceived.bind(this));
-        this.events.on('data-error', this.onDataError.bind(this));
-        this.events.on('data-snapshot-load', this.onDataReceived.bind(this));
-        this.events.on('init-edit-mode', this.onInitEditMode.bind(this));
+        if (this.scope.$$listeners.isWisePaas) {
+            this.events.on('render', this.onRender.bind(this));
+            this.events.on('data-received', this.onDataReceived.bind(this));
+            this.events.on('data-error', this.onDataError.bind(this));
+            this.events.on('data-snapshot-load', this.onDataReceived.bind(this));
+            this.events.on('init-edit-mode', this.onInitEditMode.bind(this));
+        }
     }
 
     onRender() {
@@ -86,6 +88,7 @@ export class SampleCtrl extends MetricsPanelCtrl {
     }
 
     onDataReceived(dataList) {
+        console.log('DataList:', dataList, this);
         if (dataList.length > 0) {
             if (dataList.length > 1) {
                 const error = new Error();
@@ -93,18 +96,21 @@ export class SampleCtrl extends MetricsPanelCtrl {
                 error.data = 'Metrics query returns' + dataList.length + 'series. This panel excepts a single series.\n\nResponse:\n' + JSON.stringify(dataList);
                 throw error;
             } else {
-                this.panel.data.dataValue = dataList[0].datapoints[dataList[0].datapoints.length - 1][0];
-                this.panel.data.dataLabel = Date(dataList[0].datapoints[dataList[0].datapoints.length - 1][1]);
+                var dataLength = dataList[0].datapoints.length;
+                if (dataLength) {
+                    this.panel.data.dataValue = dataList[0].datapoints[dataLength - 1][0];
+                    this.panel.data.dataLabel = Date(dataList[0].datapoints[dataLength - 1][1]);
+                }
             }
         } else {
-            this.panel.data = '';
+            this.panel.data.dataValue = 0;
+            this.panel.data.dataLabel = 'null';
         }
-        console.log('DataList:',dataList,this);
         this.render();
     }
 
     onDataError() {
-        this.panel.data = 'Data Error!';
+        this.panel.data.dataLabel = 'Data Error';
         this.render();
     }
 

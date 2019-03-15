@@ -13,8 +13,8 @@
             "small": "src/img/wise-paas-logo.svg",
             "large": "src/img/wise-paas-logo.svg"
         },
-        "version":"1.0.0",
-        "updated":"2019-03-14"
+        "version":"1.0.1",
+        "updated":"2019-03-15"
     },
     "dependencies":{
         "grafanaVersion": "4.6"
