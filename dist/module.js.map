@@ -1,0 +1,1 @@
+{"version":3,"sources":["module.js"],"names":["System","register","_export","_context","SampleCtrl","setters","_sample_ctrl","execute"],"mappings":"AAAA,YAEAA,QAAOC,UAAU,iBAAkB,SAAUC,EAASC,GAGpD,GAAIC,EACJ,QACEC,SAAU,SAAUC,GAClBF,EAAaE,EAAaF,aAE5BG,QAAS,WACPL,EAAQ,YAAaE","file":"module.js"}

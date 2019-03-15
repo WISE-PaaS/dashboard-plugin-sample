@@ -1,0 +1,22 @@
+{
+    "type":"panel",
+    "name":"Teaching Example",
+    "id":"sample-panel",
+    "info":{
+        "description":"panel for Grafana",
+        "author":{
+            "name":"Advantech",
+            "url": ""
+        },
+        "keyword":"panel",
+        "logos":{
+            "small": "src/img/wise-paas-logo.svg",
+            "large": "src/img/wise-paas-logo.svg"
+        },
+        "version":"1.0.0",
+        "updated":"2019-03-14"
+    },
+    "dependencies":{
+        "grafanaVersion": "4.6"
+    }
+}
